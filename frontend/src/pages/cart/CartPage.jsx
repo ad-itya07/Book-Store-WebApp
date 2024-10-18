@@ -6,7 +6,8 @@ import { clearCart } from "../../redux/features/cart/cartSlice";
 
 const CartPage = () => {
   const cartItems = useSelector((state) => state.cart.cartItems);
-  const subtotal = cartItems.reduce((total, item) => total + item.newPrice, 0);
+  const subtotal = cartItems.reduce((total, item) => total + item.newPrice, 0).toFixed(2);
+  
   const dispatch = useDispatch();
   const handleClearCart = () => {
     dispatch(clearCart())
