@@ -26,7 +26,7 @@ const Checkout = () => {
             zipCode: data.zipCode,
         },
         phone: data.phone,
-        productIds: cartItems.map(item => item._id),
+        productIds: cartItems.map(item => item.id),
         totalPrice: subtotal,
     }
     console.log(newOrder);

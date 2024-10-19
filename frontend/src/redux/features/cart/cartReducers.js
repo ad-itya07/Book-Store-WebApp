@@ -3,7 +3,7 @@ import Swal from "sweetalert2";
 const cartReducers = {
   addToCart: (state, action) => {
     const exisitingItem = state.cartItems.find(
-      (item) => item._id === action.payload._id
+      (item) => item.id === action.payload.id
     );
     if (!exisitingItem) {
       state.cartItems.push(action.payload);
@@ -22,7 +22,7 @@ const cartReducers = {
     }
   },
   removeFromCart: (state , action) => {
-    state.cartItems = state.cartItems.filter(item => item._id !== action.payload._id)
+    state.cartItems = state.cartItems.filter(item => item.id !== action.payload.id)
   },
   clearCart: (state) => {
     state.cartItems = []

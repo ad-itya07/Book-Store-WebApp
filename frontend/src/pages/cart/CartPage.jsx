@@ -37,7 +37,7 @@ const CartPage = () => {
               {cartItems.length > 0 ? (
                 <ul role="list" className="-my-6 divide-y divide-gray-200">
                   {cartItems.map((item) => (
-                    <CartItem key={item._id} Book={item} />
+                    <CartItem key={item.id} Book={item} />
                   ))}
                 </ul>
               ) : (
