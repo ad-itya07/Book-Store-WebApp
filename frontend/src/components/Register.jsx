@@ -4,6 +4,7 @@ import { FaGoogle } from "react-icons/fa";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
+import { useAuth } from "../context/AuthContext";
 
 const formSchema = z.object({
   email: z.string().email(),
@@ -11,6 +12,9 @@ const formSchema = z.object({
 });
 
 const Register = () => {
+  const [message, setMessage] = useState("");
+  const { registerUser } = useAuth();
+
   const {
     register,
     handleSubmit,
@@ -18,13 +22,17 @@ const Register = () => {
   } = useForm({ resolver: zodResolver(formSchema) });
 
   const onSubmit = async (data) => {
-    await new Promise((resolve) => setTimeout(resolve, 1000));
     console.log(data);
+    try {
+      await registerUser(data.email, data.password);
+      alert("User Registered Successfully!");
+    } catch (err) {
+      setMessage("Please provide a valid email and password!");
+    }
+    await new Promise((resolve) => setTimeout(resolve, 1000));
   };
 
-  const handleGoogleSignIn = () => {
-
-  }
+  const handleGoogleSignIn = () => {};
 
   return (
     <div className="h-[calc(100vh-120px)] flex justify-center items-center">
@@ -80,6 +88,10 @@ const Register = () => {
               {isSubmitting ? <span>Registering</span> : <span>Register</span>}
             </button>
           </div>
+
+          {message && (
+            <p className="text-red-500 text-xs italic mb-3">{message}</p>
+          )}
         </form>
 
         <p className="align-baseline font-medium mt-4 text-sm">
@@ -91,7 +103,10 @@ const Register = () => {
 
         {/* GOOGLE ICON */}
         <div className="mt-4">
-          <button onClick={handleGoogleSignIn} className="w-full flex flex-wrap gap-1 items-center justify-center bg-secondary hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none">
+          <button
+            onClick={handleGoogleSignIn}
+            className="w-full flex flex-wrap gap-1 items-center justify-center bg-secondary hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none"
+          >
             <FaGoogle className="mr-2" />
             Sign in with Google
           </button>
