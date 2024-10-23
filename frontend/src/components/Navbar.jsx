@@ -4,6 +4,7 @@ import { IoSearch } from "react-icons/io5";
 import { FaRegUserCircle } from "react-icons/fa";
 import { MdFavoriteBorder } from "react-icons/md";
 import { LuShoppingCart } from "react-icons/lu";
+import { FaBookOpen } from "react-icons/fa";
 
 import { Link } from "react-router-dom";
 import avatarImg from "../assets/avatar.png";
@@ -28,7 +29,7 @@ const Navbar = () => {
         {/* Left side */}
         <div className="flex item-center md:gap-16 gap-4">
           <Link to="/">
-            <HiMiniBars3BottomLeft className="size-6" />
+            <FaBookOpen className="size-6" />
           </Link>
 
           {/* Search bar */}
