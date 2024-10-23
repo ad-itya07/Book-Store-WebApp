@@ -6,6 +6,12 @@ const prisma = new PrismaClient();
 
 class BookController {
   async createBookController(req, res) {
+    if (!req.file) {
+      return res.status(400).json({
+        message: 'No file uploaded.',
+        success: false,
+      });
+    }
     let result;
     try {
       result = await cloudinary.uploader.upload(req.file.path, {
