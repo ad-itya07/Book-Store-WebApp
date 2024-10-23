@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { FaGoogle } from "react-icons/fa";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -13,7 +13,8 @@ const formSchema = z.object({
 
 const Register = () => {
   const [message, setMessage] = useState("");
-  const { registerUser } = useAuth();
+  const { registerUser , signInWithGoogle } = useAuth();
+  const navigate = useNavigate();
 
   const {
     register,
@@ -32,7 +33,17 @@ const Register = () => {
     await new Promise((resolve) => setTimeout(resolve, 1000));
   };
 
-  const handleGoogleSignIn = () => {};
+
+  const handleGoogleSignIn = async () => {
+    try {
+      await signInWithGoogle();
+      alert("Login Successfull!");
+      navigate("/");
+    } catch (err) {
+      alert("Google sign in failed");
+      console.error(err);
+    }
+  };
 
   return (
     <div className="h-[calc(100vh-120px)] flex justify-center items-center">

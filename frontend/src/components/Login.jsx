@@ -1,9 +1,10 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { FaGoogle } from "react-icons/fa";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
+import { useAuth } from "../context/AuthContext";
 
 const formSchema = z.object({
   email: z.string().email(),
@@ -12,6 +13,9 @@ const formSchema = z.object({
 
 const Login = () => {
   const [message, setMessage] = useState("");
+  const { loginUser, signInWithGoogle } = useAuth();
+  const navigate = useNavigate()
+
   const {
     register,
     handleSubmit,
@@ -19,11 +23,28 @@ const Login = () => {
   } = useForm({ resolver: zodResolver(formSchema) });
 
   const onSubmit = async (data) => {
-    await new Promise((resolve) => setTimeout(resolve, 1000));
     console.log(data);
+    try {
+      await loginUser(data.email, data.password);
+      alert("User Login Successfully!");
+      navigate('/');
+    } catch (err) {
+      setMessage("Please provide a valid email and password!");
+      console.error(err);
+    }
+    await new Promise((resolve) => setTimeout(resolve, 1000));
   };
 
-  const handleGoogleSignIn = () => {};
+  const handleGoogleSignIn = async () => {
+    try {
+      await signInWithGoogle();
+      alert("Login Successfull!");
+      navigate("/");
+    } catch (err) {
+      alert("Google sign in failed");
+      console.error(err);
+    }
+  };
 
   return (
     <div className="h-[calc(100vh-120px)] flex justify-center items-center">
