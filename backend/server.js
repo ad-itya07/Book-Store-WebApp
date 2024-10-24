@@ -2,6 +2,7 @@ import express from "express";
 import dotenv from "dotenv";
 import cors from "cors";
 import {router as bookRouter} from "./src/routes/bookRoute.js";
+import {router as orderRouter} from "./src/routes/orderRoute.js"
 
 dotenv.config();
 
@@ -15,6 +16,7 @@ app.use(cors({
   }));
 
 app.use("/api/books", bookRouter);
+app.use("/api/orders", orderRouter);
 
 app.listen(port, () => {
   console.log(`Server is running on port ${port}`);
