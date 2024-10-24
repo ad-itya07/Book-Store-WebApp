@@ -1,8 +1,5 @@
-import { PrismaClient } from "@prisma/client";
 import cloudinary from "../config/cloudinaryconfig.js";
 import {createBook, deleteBook, getABook, getBooks } from "../models/bookModel.js";
-
-const prisma = new PrismaClient();
 
 class BookController {
   async createBookController(req, res) {
