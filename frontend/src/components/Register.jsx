@@ -23,10 +23,11 @@ const Register = () => {
   } = useForm({ resolver: zodResolver(formSchema) });
 
   const onSubmit = async (data) => {
-    console.log(data);
+    // console.log(data);
     try {
       await registerUser(data.email, data.password);
       alert("User Registered Successfully!");
+      navigate("/login")
     } catch (err) {
       setMessage("Please provide a valid email and password!");
     }

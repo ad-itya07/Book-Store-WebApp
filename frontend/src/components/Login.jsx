@@ -23,7 +23,7 @@ const Login = () => {
   } = useForm({ resolver: zodResolver(formSchema) });
 
   const onSubmit = async (data) => {
-    console.log(data);
+    // console.log(data);
     try {
       await loginUser(data.email, data.password);
       alert("User Login Successfully!");
