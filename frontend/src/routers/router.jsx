@@ -7,6 +7,7 @@ import CartPage from "../pages/cart/CartPage.jsx";
 import Checkout from "../pages/checkout/checkout.jsx";
 import SingleBook from "../pages/book/SingleBook.jsx";
 import PrivateRoutes from "./PrivateRoutes.jsx";
+import OrderPage from "../pages/order/OrderPage.jsx";
 
 export const router = createBrowserRouter([
   {
@@ -19,7 +20,11 @@ export const router = createBrowserRouter([
       },
       {
         path: "/orders",
-        element: <h1>Orders</h1>,
+        element: (
+          <PrivateRoutes>
+            <OrderPage />
+          </PrivateRoutes>
+        ),
       },
       {
         path: "/about",
@@ -35,7 +40,11 @@ export const router = createBrowserRouter([
       },
       {
         path: "/cart",
-        element: <CartPage />,
+        element: (
+          <PrivateRoutes>
+            <CartPage />,
+          </PrivateRoutes>
+        ),
       },
       {
         path: "/checkout",
