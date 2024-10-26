@@ -4,6 +4,7 @@ import {
   createOrderBooks,
   findAllOrders,
   findOrderWithEmail,
+  findOrderWithEmailAndId,
   findUniqueOrder,
 } from "../models/orderModel.js";
 import prisma from "../models/orderModel.js";
@@ -117,11 +118,36 @@ class OrderController {
     }
   }
 
-  async getOrderOfUser(req, res) {
+  async getOrdersOfUser(req, res) {
     const { email } = req.params;
 
     try {
-      const order = await findOrderWithEmail(email);
+      const orders = await findOrderWithEmail(email);
+
+      if (!orders) {
+        return res.status(404).json({
+          message: "No orders placed",
+          success: false,
+        });
+      }
+      // console.log(order);
+      return res.status(200).send(
+        orders
+      );
+    } catch (err) {
+      return res.status(500).json({
+        message: "Error fetching order!",
+        success: false,
+        error: err,
+      });
+    }
+  }
+
+  async getOrderDetailsByEmailAndId(req,res) {
+    const {email, orderId} = req.params;
+
+    try {
+      const order = await findOrderWithEmailAndId(email , orderId);
 
       if (!order) {
         return res.status(404).json({

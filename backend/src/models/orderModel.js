@@ -49,6 +49,9 @@ export const findAllOrders = async () => {
         },
       },
     },
+    orderBy: {
+      createdAt: "desc",
+    },
   });
 };
 
@@ -56,6 +59,23 @@ export const findOrderWithEmail = async (email) => {
   return await prisma.order.findMany({
     where: {
       email: email,
+    },
+    include: {
+      address: true,
+      orderBooks: {
+        include: {
+          book: true,
+        },
+      },
+    },
+  });
+};
+
+export const findOrderWithEmailAndId = async (email , orderId) => {
+  return await prisma.order.findMany({
+    where: {
+      email: email,
+      id: parseInt(orderId)
     },
     include: {
       address: true,
