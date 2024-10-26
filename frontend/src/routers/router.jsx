@@ -8,6 +8,7 @@ import Checkout from "../pages/checkout/checkout.jsx";
 import SingleBook from "../pages/book/SingleBook.jsx";
 import PrivateRoutes from "./PrivateRoutes.jsx";
 import OrderPage from "../pages/order/OrderPage.jsx";
+import OrderDetails from "../pages/order/OrderDeatils.jsx";
 
 export const router = createBrowserRouter([
   {
@@ -25,6 +26,12 @@ export const router = createBrowserRouter([
             <OrderPage />
           </PrivateRoutes>
         ),
+      },
+      {
+        path: "/orders/details/:orderId",
+        element: (
+          <OrderDetails />
+        )
       },
       {
         path: "/about",
