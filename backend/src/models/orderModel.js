@@ -72,7 +72,7 @@ export const findOrderWithEmail = async (email) => {
 };
 
 export const findOrderWithEmailAndId = async (email , orderId) => {
-  return await prisma.order.findMany({
+  return await prisma.order.findUnique({
     where: {
       email: email,
       id: parseInt(orderId)

@@ -149,17 +149,16 @@ class OrderController {
     try {
       const order = await findOrderWithEmailAndId(email , orderId);
 
+      // console.log(order);
       if (!order) {
         return res.status(404).json({
           message: "No orders placed",
           success: false,
         });
       }
-      return res.status(200).json({
-        message: "Order fetched successfully!",
-        success: true,
-        order,
-      });
+      return res.status(200).send(
+        order
+      );
     } catch (err) {
       return res.status(500).json({
         message: "Error fetching order!",
