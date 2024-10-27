@@ -78,13 +78,17 @@ const OrderDetails = () => {
                 key={item.book.id}
                 className="flex items-start space-x-6 bg-gray-100 p-4 rounded-md shadow-sm"
               >
-                <img
-                  src={item.book.coverImage}
-                  alt={item.book.title}
-                  className="w-24 h-32 object-cover rounded-md shadow-md"
-                />
+                <Link to={`/books/${item.book.id}`}>
+                  <img
+                    src={item.book.coverImage}
+                    alt={item.book.title}
+                    className="w-24 h-32 object-cover rounded-md shadow-md transition-transform duration-300 hover:scale-105"
+                  />
+                </Link>
                 <div>
-                  <h5 className="text-lg font-bold">{item.book.title}</h5>
+                  <Link to={`/books/${item.book.id}`}>
+                    <h5 className="text-lg font-bold transition-colors duration-300 hover:text-blue-500">{item.book.title}</h5>
+                  </Link>
                   <p className="text-gray-600 mb-1">{item.book.description}</p>
                   <p className="text-sm">
                     <strong>Category:</strong> {item.book.category}
