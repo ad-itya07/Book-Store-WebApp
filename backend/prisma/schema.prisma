@@ -20,21 +20,22 @@ model book {
   updatedAt   DateTime?
   orderBooks  orderBook[]
 }
+
 model order {
-  id         Int      @id @default(autoincrement())
+  id         Int         @id @default(autoincrement())
   name       String
   email      String
   addressId  Int
-  address    address  @relation(fields: [addressId], references: [id])
+  address    address     @relation(fields: [addressId], references: [id])
   phone      String
   totalPrice Float
-  createdAt  DateTime @default(now())
+  createdAt  DateTime    @default(now())
   orderBooks orderBook[]
 }
 
 model address {
   id      Int     @id @default(autoincrement())
-  address  String
+  address String
   city    String
   state   String
   country String
@@ -44,8 +45,21 @@ model address {
 
 model orderBook {
   orderId Int
-  bookId Int
-  order order @relation(fields: [orderId], references: [id])
-  book book @relation(fields: [bookId], references: [id])
+  bookId  Int
+  order   order @relation(fields: [orderId], references: [id])
+  book    book  @relation(fields: [bookId], references: [id])
+
   @@id([orderId, bookId])
+}
+
+model user {
+  id       Int    @id @default(autoincrement())
+  username String @unique
+  password String
+  role     Role
+}
+
+enum Role {
+  user
+  admin
 }
