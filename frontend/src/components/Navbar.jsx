@@ -15,7 +15,7 @@ const navigation = [
   { name: "Dashboard", href: "/dashboard" },
   { name: "Orders", href: "/orders" },
   { name: "Cart Page", href: "/cart" },
-  { name: "Check Out", href: "/checkout" },
+  // { name: "Check Out", href: "/checkout" },
 ];
 
 const Navbar = () => {
