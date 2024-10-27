@@ -2,6 +2,7 @@ import React from "react";
 import { useGetOrdersOfUserByEmailQuery } from "../../redux/features/orders/ordersApi";
 import { useAuth } from "../../context/AuthContext";
 import { Link } from "react-router-dom";
+import Loading from "../../components/Loading";
 
 const OrderPage = () => {
   const { currentUser } = useAuth();
@@ -14,7 +15,7 @@ const OrderPage = () => {
   } = useGetOrdersOfUserByEmailQuery({ email });
 
   console.log(orders);
-  if (isLoading) return <div>Loading...</div>;
+  if (isLoading) return <div><Loading /></div>;
   if (isError) return <div>Error loading orders!</div>;
   //   if (isLoading) return <div>Loadng...</div>
   return (
