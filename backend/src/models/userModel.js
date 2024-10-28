@@ -13,10 +13,10 @@ export const createAdmin = async (data) => {
 };
 
 export const getUser = async (username) => {
-    // console.log(prisma.user.f);
   return await prisma.user.findUnique({
     where: {
       username: username,
     },
   });
 };
+
