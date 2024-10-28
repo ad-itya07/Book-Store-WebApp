@@ -8,4 +8,5 @@ router.get('/', (req, res) => {
 });
 
 // signup-route
-router.post('/admin/new' , userController.createAdmin);
+router.post('/admin/new' , userController.createAdminController);
+router.post('/admin/login' , userController.loginAdminController);
