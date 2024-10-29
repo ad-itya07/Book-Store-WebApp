@@ -9,6 +9,7 @@ import SingleBook from "../pages/book/SingleBook.jsx";
 import PrivateRoutes from "./PrivateRoutes.jsx";
 import OrderPage from "../pages/order/OrderPage.jsx";
 import OrderDetails from "../pages/order/OrderDeatils.jsx";
+import NormalUserDashboard from "../pages/dashboard/userDashboard.jsx";
 
 export const router = createBrowserRouter([
   {
@@ -65,6 +66,10 @@ export const router = createBrowserRouter([
         path: "/books/:id",
         element: <SingleBook />,
       },
+      {
+        path: "/user/dashboard",
+        element: <NormalUserDashboard />
+      }
     ],
   },
 ]);
