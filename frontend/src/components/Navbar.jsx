@@ -12,7 +12,7 @@ import { useSelector } from "react-redux";
 import { useAuth } from "../context/AuthContext";
 
 const navigation = [
-  { name: "Dashboard", href: "/dashboard" },
+  { name: "Dashboard", href: "/user/dashboard" },
   { name: "Orders", href: "/orders" },
   { name: "Cart Page", href: "/cart" },
   // { name: "Check Out", href: "/checkout" },
