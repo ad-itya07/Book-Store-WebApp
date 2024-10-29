@@ -21,7 +21,7 @@ const Checkout = () => {
 
   const [createOrder, isLoading] = useCreateOrderMutation();
 
-  const sanitizeString = (str) => str ? str.replace(/\0/g, '') : '';
+  const sanitizeString = (str) => (str ? str.replace(/\0/g, "") : "");
   const onSubmit = async (data) => {
     const address = {
       address: sanitizeString(data.address),
@@ -45,8 +45,9 @@ const Checkout = () => {
     console.log(newOrder);
     try {
       await createOrder(newOrder).unwrap();
-      alert("Order Placed Successfully!")
-      navigate("/orders")
+      alert("Order Placed Successfully!");
+      cartItems.length = 0;
+      navigate("/orders");
     } catch {
       console.error("Error placing an order!");
       alert("Failed to place an order!");
