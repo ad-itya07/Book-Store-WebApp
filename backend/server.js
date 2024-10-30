@@ -13,7 +13,7 @@ const port = process.env.PORT || 3000;
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cors({
-    origin: 'http://localhost:5173',
+    origin: 'https://book-store-frontend-0sv0.onrender.com',
     credentials: true,
   }));
 
