@@ -3,6 +3,8 @@ import { Link } from "react-router-dom";
 import { useAuth } from "../../context/AuthContext";
 import { getImageUrl } from "../../utils/getImgUrl";
 import { useGetOrdersOfUserByEmailQuery } from "../../redux/features/orders/ordersApi";
+import Recommended from "../home/Recommended";
+import Loading from "../../components/Loading";
 
 const NormalUserDashboard = () => {
   const imageUrl = getImageUrl();
@@ -19,25 +21,25 @@ const NormalUserDashboard = () => {
   const showOrders = orders.slice(0, 3);
   //   console.log(showOrders);
 
-  const [recommendations, setRecommendations] = useState([]);
-  useEffect(() => {
-    setRecommendations([
-      {
-        id: 1,
-        title: "Pride and Protest",
-        author: "Nikki Payne",
-        price: "29.99",
-        image: "path/to/image1",
-      },
-      {
-        id: 2,
-        title: "Mastering SEO in 2024",
-        author: "John Doe",
-        price: "19.99",
-        image: "path/to/image2",
-      },
-    ]);
-  }, []);
+  // const [recommendations, setRecommendations] = useState([]);
+  // useEffect(() => {
+  //   setRecommendations([
+  //     {
+  //       id: 1,
+  //       title: "Pride and Protest",
+  //       author: "Nikki Payne",
+  //       price: "29.99",
+  //       image: "path/to/image1",
+  //     },
+  //     {
+  //       id: 2,
+  //       title: "Mastering SEO in 2024",
+  //       author: "John Doe",
+  //       price: "19.99",
+  //       image: "path/to/image2",
+  //     },
+  //   ]);
+  // }, []);
 
   const handleLogout = async () => {
     await logout();
@@ -95,29 +97,35 @@ const NormalUserDashboard = () => {
           </div>
 
           {/* Recent Orders Section */}
-          <div className="bg-white shadow-lg border border-b-4 rounded-lg p-6 w-full md:w-1/2">
-            <h2 className="text-xl font-semibold mb-4">Your Recent Orders</h2>
-            <ul className="space-y-4">
-              {showOrders.map((order) => (
-                <li key={order.id} className="border-b pb-2">
-                  <p className="font-semibold">#Order: {order.id}</p>
-                  <p className="text-sm text-gray-500">
-                    Order Date: {order.createdAt}
-                  </p>
-                  <p className="text-sm text-gray-500">
-                    Total Amount: {order.totalPrice}
-                  </p>
-                </li>
-              ))}
-            </ul>
-            <Link to="/orders" className="text-blue-600 mt-4 inline-block">
-              View All Orders
-            </Link>
-          </div>
+          {isLoading ? (
+            <Loading />
+          ) : (
+            <div className="bg-white shadow-lg border border-b-4 rounded-lg p-6 w-full md:w-1/2">
+              <h2 className="text-xl font-semibold mb-4">Your Recent Orders</h2>
+              <ul className="space-y-4">
+                {showOrders.map((order) => (
+                  <li key={order.id} className="border-b pb-2">
+                    <p className="font-semibold">#Order: {order.id}</p>
+                    <p className="text-sm text-gray-500">
+                      Order Date: {order.createdAt}
+                    </p>
+                    <p className="text-sm text-gray-500">
+                      Total Amount: {order.totalPrice}
+                    </p>
+                  </li>
+                ))}
+              </ul>
+              <Link to="/orders" className="text-blue-600 mt-4 inline-block">
+                View All Orders
+              </Link>
+            </div>
+          )}
         </div>
+
         {/* Recommendations Section */}
         <div className="bg-white border border-b-4 shadow-lg rounded-lg p-6">
-          <h2 className="text-xl font-semibold mb-4">Recommended for You</h2>
+          <Recommended />
+          {/* <h2 className="text-xl font-semibold mb-4">Recommended for You</h2>
           <ul className="space-y-4">
             {recommendations.map((item) => (
               <li key={item.id} className="flex items-center space-x-4">
@@ -141,7 +149,7 @@ const NormalUserDashboard = () => {
           </ul>
           <Link to="/recommended" className="text-blue-600 mt-4 inline-block">
             View More
-          </Link>
+          </Link> */}
         </div>
       </div>
     </div>
