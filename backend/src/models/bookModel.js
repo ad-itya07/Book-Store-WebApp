@@ -32,3 +32,15 @@ export const deleteBook = async (id) => {
     },
   });
 };
+
+export const getTrendingBooksCount = async () => {
+  return await prisma.book.count({
+    where: {
+      trending: true,
+    },
+  })
+}
+
+export const getTotalBooksCount = async () => {
+  return await prisma.book.count();
+}
