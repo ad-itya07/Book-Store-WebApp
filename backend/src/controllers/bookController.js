@@ -107,6 +107,7 @@ class BookController {
         success: "true",
       });
     } catch (err) {
+      console.error("Error deleting book:", err.meta);
       return res.status(500).json({
         message: "Error deleting book from DB.",
         success: false,
