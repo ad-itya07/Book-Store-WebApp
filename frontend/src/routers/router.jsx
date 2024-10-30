@@ -15,6 +15,8 @@ import AdminLogin from "../components/AdminLogin.jsx";
 import AdminDashboardLayout from "../pages/dashboard/AdminDashboardLayout.jsx";
 import AdminDashboard from "../pages/dashboard/adminDashboard.jsx";
 import ManageBooks from "../pages/admin/ManageBooks.jsx";
+import AddBook from "../pages/admin/AddBooks.jsx";
+import EditBook from "../pages/admin/EditBook.jsx";
 
 export const router = createBrowserRouter([
   {
@@ -91,7 +93,6 @@ export const router = createBrowserRouter([
         path: "",
         element: (
           <AdminRoute>
-            {/* <div>dashboard</div> */}
              <AdminDashboard />
           </AdminRoute>
         ),
@@ -100,8 +101,7 @@ export const router = createBrowserRouter([
         path: "add-new-book",
         element: (
           <AdminRoute>
-            <div>add-new-book</div>
-            {/* <AddBook /> */}
+            <AddBook />
           </AdminRoute>
         ),
       },
@@ -109,8 +109,7 @@ export const router = createBrowserRouter([
         path: "edit-book/:id",
         element: (
           <AdminRoute>
-            <div>edit book</div>
-            {/* <UpdateBook /> */}
+            <EditBook />
           </AdminRoute>
         ),
       },
