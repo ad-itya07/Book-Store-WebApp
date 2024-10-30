@@ -45,9 +45,9 @@ const Checkout = () => {
     console.log(newOrder);
     try {
       await createOrder(newOrder).unwrap();
+      cartItems.length = 0;
       alert("Order Placed Successfully!");
       navigate("/orders");
-      cartItems.length = 0;
     } catch {
       console.error("Error placing an order!");
       alert("Failed to place an order!");
