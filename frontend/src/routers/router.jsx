@@ -12,6 +12,9 @@ import OrderDetails from "../pages/order/OrderDeatils.jsx";
 import NormalUserDashboard from "../pages/dashboard/userDashboard.jsx";
 import AdminRoute from "./AdminRoute.jsx";
 import AdminLogin from "../components/AdminLogin.jsx";
+import AdminDashboardLayout from "../pages/dashboard/AdminDashboardLayout.jsx";
+import AdminDashboard from "../pages/dashboard/adminDashboard.jsx";
+import ManageBooks from "../pages/admin/ManageBooks.jsx";
 
 export const router = createBrowserRouter([
   {
@@ -74,15 +77,13 @@ export const router = createBrowserRouter([
   },
   {
     path: "/admin/login",
-    element: 
-    <AdminLogin/>,
+    element: <AdminLogin />,
   },
   {
     path: "/admin/dashboard",
     element: (
       <AdminRoute>
-        <div>dashboard layout</div>
-        {/* <DashboardLayout/> */}
+        <AdminDashboardLayout />
       </AdminRoute>
     ),
     children: [
@@ -90,8 +91,8 @@ export const router = createBrowserRouter([
         path: "",
         element: (
           <AdminRoute>
-            <div>dashboard</div>
-            {/* <Dashboard /> */}
+            {/* <div>dashboard</div> */}
+             <AdminDashboard />
           </AdminRoute>
         ),
       },
@@ -117,8 +118,7 @@ export const router = createBrowserRouter([
         path: "manage-books",
         element: (
           <AdminRoute>
-            <div>ManageBooks</div>
-            {/* <ManageBooks /> */}
+           <ManageBooks /> 
           </AdminRoute>
         ),
       },
