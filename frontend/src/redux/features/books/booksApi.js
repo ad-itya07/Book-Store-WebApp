@@ -57,5 +57,5 @@ const booksApi = createApi({
   },
 });
 
-export const {useFetchAllBooksQuery, useFetchBookByIdQuery, useAddBookMutation, useDeleteBookMutation}  = booksApi;
+export const {useFetchAllBooksQuery, useFetchBookByIdQuery, useAddBookMutation, useDeleteBookMutation, useUpdateBookMutation}  = booksApi;
 export default booksApi;
