@@ -88,4 +88,44 @@ export const findOrderWithEmailAndId = async (email , orderId) => {
   });
 };
 
+export const getTotalOrdersCount = async () => {
+  return await prisma.order.count();
+}
+
+export const getTotalSales = async () => {
+  const result = await prisma.order.aggregate({
+    _sum: {
+      totalPrice: true,
+    },
+  });
+  return result._sum.totalPrice;
+}
+
+export const getMonthlySales = async () => {
+  const result = await prisma.order.groupBy({
+    by: ['createdAt'],
+    _sum: {
+      totalPrice: true,
+    },
+    orderBy: {
+      createdAt: 'asc',
+    },
+  });
+
+  const monthlySales = result.reduce((acc, order) => {
+    const month = order.createdAt.getMonth() + 1;
+    const year = order.createdAt.getFullYear();
+
+    const monthKey = `${year}-${month}`
+    if (!acc[monthKey]) {
+      acc[monthKey] = 0;
+    }
+
+    acc[monthKey] += order._sum.totalPrice;
+    return acc;
+  }, {});
+
+  return monthlySales;
+}
+
 export default prisma;
