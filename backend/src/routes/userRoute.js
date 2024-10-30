@@ -7,6 +7,7 @@ router.get('/', (req, res) => {
   res.send('Hello World');
 });
 
-// signup-route
+// admin-routes
 router.post('/admin/new' , userController.createAdminController);
 router.post('/admin/login' , userController.loginAdminController);
+router.get('/admin/stats', userController.adminStatsController)
