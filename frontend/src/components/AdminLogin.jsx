@@ -30,11 +30,7 @@ const AdminLogin = () => {
       const token = response.token;
       if (token) {
         localStorage.setItem("token", token);
-        setTimeout(() => {
-          localStorage.removeItem("token");
-          alert("Token has been expired!, Please login again.");
-          navigate("/");
-        }, 3600 * 1000);
+        localStorage.setItem("tokenExpiry", Date.now() + 24 * 3600 * 1000);        
       }
 
       alert("Admin Login successful!");
