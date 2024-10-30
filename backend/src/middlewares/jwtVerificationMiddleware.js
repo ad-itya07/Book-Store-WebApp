@@ -20,6 +20,7 @@ export function verifyAdminToken(req, res, next) {
     req.token = bearerToken;
     jwt.verify(req.token, process.env.JWT_SECRET_KEY, (err, admin) => {
       if (err) {
+        console.error("JWT Verification Error:", err);
         return res.status(403).json({
           message: "Invalid Credentials",
           success: false,
