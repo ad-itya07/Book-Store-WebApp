@@ -2,6 +2,8 @@ import jwt from "jsonwebtoken";
 import bcrypt from "bcrypt";
 import dotenv from "dotenv";
 import { createAdmin, getUser } from "../models/userModel.js";
+import { getMonthlySales, getTotalOrdersCount, getTotalSales } from "../models/orderModel.js";
+import { getTotalBooksCount, getTrendingBooksCount } from "../models/bookModel.js";
 
 dotenv.config();
 
@@ -80,7 +82,7 @@ class userController {
         }
       } catch (err) {
         console.error(err);
-        res.status(500).json({
+        return res.status(500).json({
           message: "Failed to check username in DB!",
           success: false,
           error: err,
@@ -89,11 +91,14 @@ class userController {
 
       const isMatch = await bcrypt.compare(password, admin.password);
       admin.password = null;
+
+      const tokenPayload = { id: admin.id, username: admin.username, nonce: Math.random().toString() }
+      ;
       if (isMatch) {
         jwt.sign(
-          { admin },
+          tokenPayload,
           process.env.JWT_SECRET_KEY,
-          { expiresIn: "1m" },
+          { expiresIn: "1h", jwtid: `${admin.id}-${new Date().getTime()}`},
           (err, token) => {
             if (err) {
               return res.status(500).json({
@@ -102,12 +107,12 @@ class userController {
                 err,
               });
             }
-            return res.json({ 
-                message: "Authentication Successfull!",
-                success: true,
-                token,
-                admin,
-             });
+            return res.json({
+              message: "Authentication Successfull!",
+              success: true,
+              token,
+              admin: { id: admin.id, username: admin.username },
+            });
           }
         );
       } else {
@@ -120,6 +125,78 @@ class userController {
       console.error(err);
       res.status(500).json({
         message: "Signup failed!",
+        success: false,
+        error: err,
+      });
+    }
+  }
+
+  async adminStatsController(req, res) {
+    try {
+      let totalOrders, totalSales, trendingCount, totalBookCount, monthlySales;
+      try {
+        totalOrders = await getTotalOrdersCount();
+      } catch (Err) {
+        return res.status(500).json({
+          message: "Error getting total orders",
+          success: false,
+          Err,
+        });
+      }
+      try {
+        totalSales = await getTotalSales();
+      } catch (Err) {
+        return res.status(500).json({
+          message: "Error getting total sales",
+          success: false,
+          Err,
+        });
+      }
+      try {
+        trendingCount = await getTrendingBooksCount();
+      } catch (Err) {
+        return res.status(500).json({
+          message: "Error getting trending books count",
+          success: false,
+          Err,
+        });
+      }
+      try {
+        totalBookCount = await getTotalBooksCount();
+      } catch (Err) {
+        return res.status(500).json({
+          message: "Error getting books count",
+          success: false,
+          Err,
+        });
+      }
+      try {
+        monthlySales = await getMonthlySales();
+        // console.log(monthlySales);
+      } catch (Err) {
+        return res.status(500).json({
+          message: "Error getting monthly sales",
+          success: false,
+          Err,
+        });
+      }
+
+      const stats = {
+        totalOrders,
+        totalSales,
+        trendingCount,
+        totalBookCount,
+        monthlySales,
+      };
+
+      return res.status(200).json({
+        message: "Admin Stats fetched successfully!",
+        success: true,
+        stats,
+      });
+    } catch (err) {
+      return res.status(500).json({
+        message: "Error fetching admin stats",
         success: false,
         error: err,
       });
