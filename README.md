@@ -15,7 +15,7 @@
 
 - **Frontend**: React.js, Tailwind CSS
 - **Backend**: Node.js, Express.js
-- **Database**: MongoDB
+- **Database**: Postgres and Prisma
 - **Authentication**: JSON Web Tokens (JWT)
 - **Payment Integration**: Stripe API
 
@@ -46,19 +46,20 @@
     ```bash
     >>> Stepup firebase app and configure the environment
     
-    VITE_API_KEY="AIzaSyCXvDIC4MPrkaMdeg_O2iij88wLpfj3qBA"
-    VITE_Auth_Domain="book-store-mern-app.firebaseapp.com"
-    VITE_PROJECT_ID="book-store-mern-app"
-    VITE_STORAGE_BUCKET="book-store-mern-app.appspot.com"
-    VITE_MESSAGING_SENDERID= "205632822247"
-    VITE_APPID="1:205632822247:web:b0db0ec66bf6de0bbb3b42"
+    VITE_API_KEY=""
+    VITE_Auth_Domain=""
+    VITE_PROJECT_ID=""
+    VITE_STORAGE_BUCKET=""
+    VITE_MESSAGING_SENDERID= ""
+    VITE_APPID=""
     ```
 
     - Backend:
+         - Note that the books that are displayed are on the database, so you'll have tk configure the database and add books there either manually or postman, or by running the admin side service.
       ```bash
-      DB_URL = "mongodb+srv://helpyourassistant:pqam0Mwv3Vwv8Off@cluster0.qc3bq.mongodb.net/book-store?retryWrites=true&w=majority&appName=Cluster0"
+      DB_URL = ""
 
-      JWT_SECRET_KEY = 'bc992a20cb6706f741433686be814e3df45e57ea1c2fc85f9dbb0ef7df12308a669bfa7c976368ff32e32f6541480ce9ec1b122242f9b1257ab669026aeaf16'
+      JWT_SECRET_KEY = ''
       ```
       
 5. **Run the development servers**:
